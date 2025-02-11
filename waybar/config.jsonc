@@ -1,0 +1,293 @@
+// -*- mode: jsonc -*-
+[
+  {
+    // "output": ["DP-1", "eDP-2"],
+    "layer": "top", // Waybar at top layer
+    "position": "top", // Waybar position (top|bottom|left|right)
+    "height": 24, // Waybar height (to be removed for auto height)
+    // "width": 1280, // Waybar width
+    "spacing": 4, // Gaps between modules (4px)
+
+    "reload_style_on_change": true,
+    "modules-left": [
+      "custom/os_button",
+      "custom/notification",
+      "custom/pacman",
+      "tray",
+      "wlr/taskbar"
+    ],
+    "modules-center": ["hyprland/workspaces", "custom/player"],
+    "modules-right": [
+      "group/expand",
+      "bluetooth",
+      // "tray",
+      "hyprland/language",
+      "battery",
+      "network",
+      "custom/wifi",
+      "custom/backlight",
+      "pulseaudio",
+      "clock"
+    ],
+
+    "group/expand": {
+      "orientation": "horizontal",
+      "drawer": {
+        "transition-duration": 600,
+        "transition-to-left": true,
+        "click-to-reveal": true
+      },
+      "modules": [
+        "custom/expand",
+        "custom/colorpicker",
+        "disk",
+        "cpu",
+        "memory",
+        "temperature",
+        "custom/endpoint"
+      ]
+    },
+    "custom/os_button": {
+      "format": "",
+      "on-click": "wofi --show drun",
+      "tooltip": false
+    },
+    "custom/backlight": {
+      "exec": "~/.config/waybar/scripts/brightness-control.sh",
+      "return-type": "json",
+      "format": "{}",
+      "tooltip": true,
+      "on-scroll-up": "~/.config/waybar/scripts/brightness-control.sh -o i",
+      "on-scroll-down": "~/.config/waybar/scripts/brightness-control.sh -o d",
+      "interval": 1,
+      "min-length": 6,
+      "max-length": 6
+    },
+    "wlr/taskbar": {
+      "format": "{icon}", //{title:.17}
+      "icon-size": 24,
+      "spacing": 6,
+      "on-click-middle": "close",
+      "tooltip-format": "{title}",
+      "ignore-list": [],
+      "on-click": "activate"
+    },
+    "temperature": {
+      "hwmon-path-abs": "/sys/devices/platform/coretemp.0/hwmon",
+      "input-filename": "temp2_input",
+      "critical-threshold": 75,
+      "tooltip": false,
+      "format-critical": " {temperatureC}°C",
+      "format": " {temperatureC}°C"
+    },
+    "disk": {
+      "interval": 30,
+      "format": "󰋊 {percentage_used}%",
+      "path": "/",
+      "tooltip": true,
+      "unit": "GB",
+      "tooltip-format": "Available {free} of {total}"
+    },
+    "hyprland/language": {
+      "format": "{}",
+      "format-en": "US",
+      "format-fa": "FA"
+    },
+
+    "clock": {
+      "format": "{:%a, %d %b %Y | %H:%M 󰃰}", //{:%R\n %d.%m.%Y}",
+      // "format-alt": "{:%H:%M  | %e %B }",
+      "interval": 60,
+      "tooltip-format": "<tt><big>{calendar}</big></tt>", //"<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+      "calendar": {
+        "mode": "month", //year
+        "mode-mon-col": 3,
+        // "weeks-pos": "right",
+        "on-scroll": 1,
+        "on-click-right": "mode",
+        "format": {
+          "months": "<span color='#cba6f7'><b>{}</b></span>",
+          "days": "<span color='#cdd6f4'><b>{}</b></span>",
+          "weeks": "<span color='#94e2d5'>W{}</span>",
+          "weekdays": "<span color='#f9e2af'><b>{}</b></span>",
+          "today": "<span color='#f5e0dc'><b><u>{}</u></b></span>"
+        }
+      },
+      "actions": {
+        "on-click-right": "mode",
+        "on-click-forward": "tz_up",
+        "on-click-backward": "tz_down",
+        "on-scroll-up": "shift_up",
+        "on-scroll-down": "shift_down"
+      },
+      "timezone": "Asia/Tehran"
+    },
+
+    "memory": {
+      "format": "{percentage}% ", //mem
+      "interval": 2,
+
+      "states": {
+        "critical": 80
+      }
+    },
+    "battery": {
+      "interval": 5,
+      "tooltip": true,
+      "states": {
+        "good": 95,
+        "warning": 30,
+        "critical": 20
+      },
+      "format": "{capacity}% {icon}", //bat
+      "format-charging": "{capacity}% 󰂄", //bat
+      "format-plugged": "{capacity}% 󰂄 ", //bat
+      "format-alt": "{time} {icon}",
+      "format-icons": ["󰁻", "󰁼", "󰁾", "󰂀", "󰂂", "󰁹"]
+    },
+
+    "cpu": {
+      "format": "{usage}% ", //cpu
+      "tooltip": true,
+      "interval": 2,
+
+      "states": {
+        "critical": 90
+      }
+    },
+
+    "pulseaudio": {
+      "scroll-step": 5,
+      "max-volume": 100,
+      "format": "vol {volume}%",
+      "format-bluetooth": "vol {volume}%",
+      "nospacing": 1,
+      "on-click": "pavucontrol",
+      "tooltip": true,
+      // "scroll-step": 1, // %, can be a float
+      // "format": "<span color='#fbf1c7' >  </span>{volume}%",
+      // "format-muted": "<span color='#fbf1c7' >  </span>{volume}%",
+      // "format-bluetooth": "<span color='#fbf1c7' > 󰂰 </span>{volume}%",
+      "format-bluetooth-muted": "<span color='#fbf1c7' > 󰂲 </span>{volume}%",
+      "format-source": "{volume}% "
+      // "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
+      // "tooltip": false,
+      // "max-volume": 130
+    },
+
+    "custom/wifi": {
+      "exec": "~/.config/waybar/scripts/wifi-status.sh",
+      "return-type": "json",
+      "format": "{}",
+      "tooltip": true,
+      "on-click": "~/.config/waybar/scripts/wifi-menu.sh",
+      "interval": 1,
+      "min-length": 1,
+      "max-length": 12
+    },
+
+    "hyprland/workspaces": {
+      "disable-scroll": true,
+      "all-outputs": true,
+      "warp-on-scroll": false,
+      "format": "{name}",
+
+      "format-icons": {
+        "active": "",
+        "default": "",
+        "empty": ""
+      },
+      "persistent-workspaces": {
+        "*": [1, 2, 3, 4]
+      }
+    },
+
+    "custom/notification": {
+      "tooltip": false,
+      "format": "",
+      "on-click": "swaync-client -t -sw",
+      "escape": true
+    },
+
+    "network": {
+      "format-wifi": "{bandwidthDownBytes}{bandwidthUpBytes} ",
+      "format-ethernet": "{bandwidthDownBits} ",
+      "format-disconnected": "",
+      "tooltip-format-disconnected": "Error",
+      "tooltip-format-wifi": "{essid} ({signalStrength}%) ",
+      "tooltip-format-ethernet": "{ifname} 🖧 ",
+      "interval": 5,
+      "tooltip": true,
+      "on-click": "kitty nmtui"
+    },
+    "bluetooth": {
+      "format": "<span color='#458588'>󰂰 </span>",
+      "format-disabled": "<span color='#458588'>󰂲 </span>",
+      "format-connected": "<span color='#458588'>󰂱 </span>",
+      "format-connected-battery": "<span color='#458588'>󰂱 </span>",
+
+      "tooltip-format": "{num_connections} connected",
+      "tooltip-format-disabled": "Bluetooth Disabled",
+      "tooltip-format-connected": "{num_connections} connected\n{device_enumerate}",
+      "tooltip-format-enumerate-connected": "{device_alias}",
+      "tooltip-format-enumerate-connected-battery": "{device_alias}: {device_battery_percentage}%",
+
+      "on-click": "~/.config/waybar/scripts/bluetooth-menu.sh",
+      "interval": 1,
+      "min-length": 1,
+      "max-length": 10
+    },
+    // "bluetooth": {
+    //   "format-on": "󰂯",
+    //   "format-off": "BT-off",
+    //   "format-disabled": "󰂲",
+    //   "format-connected-battery": "{device_battery_percentage}% 󰂯",
+    //   "format-alt": "{device_alias} 󰂯",
+    //   "tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected",
+    //   "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
+    //   "tooltip-format-enumerate-connected": "{device_alias}\n{device_address}",
+    //   "tooltip-format-enumerate-connected-battery": "{device_alias}\n{device_address}\n{device_battery_percentage}%",
+    //   "on-click-right": "blueman-manager"
+    // },
+
+    "custom/pacman": {
+      "format": "󰅢   {}",
+      "interval": 60,
+      "exec": "checkupdates | wc -l",
+      "exec-if": "exit 0",
+      "on-click": "kitty sh -c 'yay -Syu; echo Done - Press enter to exit; read'; pkill -SIGRTMIN+8 waybar",
+      "signal": 8,
+      "tooltip": false
+    },
+    "custom/expand": {
+      "format": "",
+      "tooltip": false
+    },
+    "custom/endpoint": {
+      "format": "|",
+      "tooltip": false
+    },
+
+    "custom/colorpicker": {
+      "format": "{}",
+      "return-type": "json",
+      "interval": "once",
+      "exec": "~/.config/waybar/scripts/colorpicker.sh -j",
+      "on-click": "~/.config/waybar/scripts/colorpicker.sh",
+      "signal": 1
+    },
+    // "cpu": {
+    //   "format": "",
+    // },
+
+    "tray": {
+      "icon-size": 14,
+      "spacing": 10
+    }
+    //     "tray": {
+    //     "spacing": 10,
+    //     "tooltip": false
+    // },
+  }
+  // ,{}
+]

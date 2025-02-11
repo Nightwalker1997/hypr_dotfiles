@@ -1,0 +1,51 @@
+Default MPV Keybindings
+Playback Controls
+
+    Space: Pause/Play toggle
+    Left Arrow: Seek backward 5 seconds
+    Right Arrow: Seek forward 5 seconds
+    Up Arrow: Increase volume
+    Down Arrow: Decrease volume
+    Page Up: Seek forward 10 minutes
+    Page Down: Seek backward 10 minutes
+    . (Period): Advance to the next frame (paused mode)
+    , (Comma): Go back to the previous frame (paused mode)
+    >: Increase playback speed
+    <: Decrease playback speed
+
+Audio and Video Settings
+
+    9: Decrease volume by 2%
+    0: Increase volume by 2%
+    m: Mute audio
+    f: Toggle fullscreen
+    v: Toggle subtitles visibility
+    s: Take a screenshot without subtitles
+    S: Take a screenshot with subtitles
+    d: Cycle through audio delay
+    a: Cycle through audio tracks
+    j: Cycle through subtitle tracks
+
+Playback List
+
+    >: Next file in playlist
+    <: Previous file in playlist
+
+Miscellaneous
+
+    q: Quit MPV
+    Q: Force quit MPV without saving watch-later data
+    o: Show OSD (On-Screen Display)
+    Ctrl+h: Show help
+    Ctrl+c: Stop playback
+    Ctrl+q: Force quit
+
+Unused Keys (Recommendations)
+
+Here are some keys that are typically not bound by default and can be safely used:
+
+    z, x, c, n
+    Alt combinations (e.g., Alt+l, Alt+k)
+    Shift combinations (e.g., Shift+l, Shift+m)
+    Function keys (F1, F2, etc., except F11 which is often fullscreen)
+
