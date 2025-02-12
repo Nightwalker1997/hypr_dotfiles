@@ -31,7 +31,7 @@ if ! [[ "$FORMAT_IDS" =~ ^([0-9]+(\+([0-9]+))*)$ ]]; then
 fi
 
 # Now download the video in the selected format(s) by the user
-yt-dlp --cookies-from-browser firefox --embed-subs --output "$HOME/Downloads/%(title)s.%(ext)s" --sub-lang en,fa -f "$FORMAT_IDS" "$URL" || {
+yt-dlp --cookies-from-browser firefox --embed-subs --output "$HOME/Downloads/%(title)s.%(ext)s" --merge-output-format mp4 --sub-lang en,fa -f "$FORMAT_IDS" "$URL" || {
   echo "Error: Download failed. Exiting."
   exit 1
 }
