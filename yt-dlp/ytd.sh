@@ -1,8 +1,13 @@
 #!/bin/bash
+# Check if yt-dlp is installed; if not, install it.
+if ! command -v yt-dlp &>/dev/null; then
+  echo "yt-dlp is not installed. Installing yt-dlp..."
+  sudo pacman -S yt-dlp || { echo "Error: Failed to install yt-dlp. Exiting."; exit 1; }
+fi
 
 # Take URL as the first argument passed to the script
-URL="$1"
-
+VIDEO_ID="$1"
+URL="https://www.youtube.com/watch?v=$VIDEO_ID"
 # Filter WebM and FLV formats and show the user a warning message
 # Use `grep -v` to exclude both WebM and FLV formats from the list
 echo "Filtering out WebM and FLV formats..."
@@ -30,8 +35,17 @@ if ! [[ "$FORMAT_IDS" =~ ^([0-9]+(\+([0-9]+))*)$ ]]; then
   exit 1
 fi
 
+
+# Set the output directory to $HOME/Downloads/YouTube and create it if it doesn't exist
+OUTPUT_DIR="$HOME/Downloads/YouTube"
+if [ ! -d "$OUTPUT_DIR" ]; then
+  echo "Creating output directory: $OUTPUT_DIR"
+  mkdir -p "$OUTPUT_DIR" || { echo "Error: Could not create directory $OUTPUT_DIR. Exiting."; exit 1; }
+fi
+
+
 # Now download the video in the selected format(s) by the user
-yt-dlp --cookies-from-browser firefox --embed-subs --output "$HOME/Downloads/%(title)s.%(ext)s" --merge-output-format mp4 --sub-lang en,fa -f "$FORMAT_IDS" "$URL" || {
+yt-dlp --cookies-from-browser firefox --embed-subs --write-thumbnail --embed-thumbnail --output "$OUTPUT_DIR/%(title)s.%(ext)s" --merge-output-format mp4 --sub-lang en,fa -f "$FORMAT_IDS" "$URL" || {
   echo "Error: Download failed. Exiting."
   exit 1
 }
