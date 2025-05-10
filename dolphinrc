@@ -1,6 +1,27 @@
+[CompactMode]
+MaximumTextWidthIndex=1
+
+[ContentDisplay]
+RecursiveDirectorySizeLimit=1
+
+[DetailsMode]
+HighlightEntireRow=false
+LeftPadding=0
+RightPadding=0
+
 [General]
+EditableUrl=true
+GlobalViewProps=false
+ModifiedStartupSettings=false
+ShowFullPath=true
+ShowStatusBar=FullWidth
+ShowToolTips=true
 Version=202
 ViewPropsTimestamp=2025,2,2,19,21,36.276
+
+[InformationPanel]
+dateFormat=ShortFormat
+previewsAutoPlay=true
 
 [KFileDialog Settings]
 Places Icons Auto-resize=false
@@ -10,4 +31,4 @@ Places Icons Static Size=22
 MenuBar=Disabled
 
 [PreviewSettings]
-Plugins=appimagethumbnail,audiothumbnail,comicbookthumbnail,cursorthumbnail,djvuthumbnail,ebookthumbnail,exrthumbnail,directorythumbnail,heif,imagethumbnail,jpegthumbnail,jxl,kraorathumbnail,windowsexethumbnail,windowsimagethumbnail,opendocumentthumbnail,svgthumbnail,gdk-pixbuf-thumbnailer,gsf-office
+Plugins=appimagethumbnail,audiothumbnail,comicbookthumbnail,cursorthumbnail,djvuthumbnail,ebookthumbnail,exrthumbnail,directorythumbnail,imagethumbnail,jpegthumbnail,kraorathumbnail,windowsexethumbnail,windowsimagethumbnail,opendocumentthumbnail,svgthumbnail,textthumbnail,gdk-pixbuf-thumbnailer,gsf-office
